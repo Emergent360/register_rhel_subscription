@@ -9,19 +9,12 @@
     release: "{{ rh_release }}"
     auto_attach: true
   when: rh_register
-  register: rhsm_output
-
-- name: Enable RHEL repos (RHEL 8)
-  rhsm_repository: name={{item}} state=enabled
-  with_items:
-    - rhel-{{ansible_distribution_major_version}}-for-{{ansible_architecture}}-baseos-rpms
-    - rhel-{{ansible_distribution_major_version}}-for-{{ansible_architecture}}-appstream-rpms
-    - rhel-{{ansible_distribution_major_version}}-for-{{ansible_architecture}}-supplementary-rpms
-    - codeready-builder-for-rhel-{{ansible_distribution_major_version}}-{{ansible_architecture}}-rpms
-  when: rh_register and ansible_distribution_major_version|int == 8
+  register: reg_sub
+  until: reg_sub is not failed
+  retries: 5
 
 - debug:
-    msg: "{{ rhsm_output }}"
+    msg: "{{ reg_sub }}"
 
 - name: Unregister RHEL instance subscription
   redhat_subscription:
@@ -29,7 +22,9 @@
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
   when: not rh_register
-  register: rhsm_output
+  register: unreg_sub
+  until: unreg_sub is not failed
+  retries: 5
 
 - debug:
-    msg: "{{ rhsm_output }}"
+    msg: "{{ unreg_sub }}"
