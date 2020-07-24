@@ -10,12 +10,13 @@
   when: rh_register
   register: rhsm_output
 
-- debug:
-    msg: "{{ rhsm_output }}"
-    
 - name: Unregister RHEL instance subscription
   redhat_subscription:
     state: absent
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
   when: not rh_register
+  register: rhsm_output
+
+- debug:
+    msg: "{{ rhsm_output }}"
