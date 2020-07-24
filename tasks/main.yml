@@ -8,7 +8,11 @@
     org_id: "{{ rh_org_id }}"
     auto_attach: true
   when: rh_register
+  register: rhsm_output
 
+- debug:
+    msg: "{{ rhsm_output }}"
+    
 - name: Unregister RHEL instance subscription
   redhat_subscription:
     state: absent
