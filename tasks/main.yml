@@ -8,3 +8,10 @@
     org_id: "{{ rh_org_id }}"
     auto_attach: true
   when: rh_register
+
+- name: Unregister RHEL instance subscription
+  redhat_subscription:
+    state: absent
+    activationkey: "{{ rh_activationkey }}"
+    org_id: "{{ rh_org_id }}"
+  when: not rh_register
