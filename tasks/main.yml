@@ -13,9 +13,6 @@
   until: reg_sub is not failed
   retries: 5
 
-- debug:
-    msg: "{{ reg_sub }}"
-
 - name: Unregister RHEL instance subscription
   redhat_subscription:
     state: absent
@@ -25,6 +22,3 @@
   register: unreg_sub
   until: unreg_sub is not failed
   retries: 5
-
-- debug:
-    msg: "{{ unreg_sub }}"
