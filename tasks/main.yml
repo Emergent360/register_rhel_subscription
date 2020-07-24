@@ -11,6 +11,15 @@
   when: rh_register
   register: rhsm_output
 
+- name: Enable RHEL repos (RHEL 8)
+  rhsm_repository: name={{item}} state=enabled
+  with_items:
+    - rhel-{{ansible_distribution_major_version}}-for-{{ansible_architecture}}-baseos-rpms
+    - rhel-{{ansible_distribution_major_version}}-for-{{ansible_architecture}}-appstream-rpms
+    - rhel-{{ansible_distribution_major_version}}-for-{{ansible_architecture}}-supplementary-rpms
+    - codeready-builder-for-rhel-{{ansible_distribution_major_version}}-{{ansible_architecture}}-rpms
+  when: ansible_distribution_major_version|int == 8
+
 - debug:
     msg: "{{ rhsm_output }}"
 
