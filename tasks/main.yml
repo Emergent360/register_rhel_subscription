@@ -6,6 +6,7 @@
     state: present
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
+    release: "{{ rh_release }}"
     auto_attach: true
   when: rh_register
   register: rhsm_output
