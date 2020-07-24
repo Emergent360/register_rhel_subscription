@@ -13,6 +13,12 @@
   until: reg_sub is not failed
   retries: 5
 
+- name: Update stage to registered
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    tags:
+      Stage: "registered"
+      
 - name: Unregister RHEL instance subscription
   redhat_subscription:
     state: absent
