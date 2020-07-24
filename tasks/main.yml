@@ -4,7 +4,7 @@
 - name: Register RHEL instance subscription
   redhat_subscription:
     state: present
-    username: "{{ rh_user }}"
-    password: "{{ rh_password }}"
+    activationkey: "{{ rh_activationkey }}"
+    org_id: "{{ rh_org_id }}"
     auto_attach: true
   when: rh_register
