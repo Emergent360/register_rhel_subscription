@@ -1,0 +1,10 @@
+---
+# tasks file for register_rhel_subscription
+
+- name: Register RHEL instance subscription
+  redhat_subscription:
+    state: present
+    username: "{{ rh_user }}"
+    password: "{{ rh_password }}"
+    auto_attach: true
+  when: rh_register
