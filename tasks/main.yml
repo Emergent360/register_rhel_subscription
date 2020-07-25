@@ -14,11 +14,12 @@
   retries: 5
 
 - debug:
-    msg: "{{ ec2_id ec2_subnet_id hypervisor }}"
+    msg: "{{ ec2_id }} {{ ec2_subnet_id }} {{ hypervisor }}"
 
 - name: Update stage to registered
   ec2_tag:
     region: "{{ ec2_region }}"
+    resource: "{{ ec2_id }}"
     tags:
       Stage: "registered"
       
