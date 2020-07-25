@@ -14,7 +14,7 @@
   retries: 5
 
 - debug:
-    msg: "{{ related_data }}"
+    msg: "{{ ansible_env }}"
 
 - name: Update stage to registered
   ec2_tag:
