@@ -14,7 +14,7 @@
   retries: 5
 
 - debug:
-    msg: "{{ ec2_id }}"
+    msg: "{{ ec2_id ec2_subnet_id hypervisor }}"
 
 - name: Update stage to registered
   ec2_tag:
