@@ -13,6 +13,9 @@
   until: reg_sub is not failed
   retries: 5
 
+- debug:
+    msg: "{{ variables }}"
+
 - name: Update stage to registered
   ec2_tag:
     region: "{{ ec2_region }}"
