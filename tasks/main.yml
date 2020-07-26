@@ -18,7 +18,7 @@
 
 - name: Update stage to registered
   set_fact:
-    "{{ ec2_id }}-stage": "registered"
+    "provisioning_stage": "registered"
   when: reg_sub is not failed
 
 - name: Unregister RHEL instance subscription
