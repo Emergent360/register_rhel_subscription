@@ -17,12 +17,10 @@
     msg: "{{ ec2_id }} {{ ec2_subnet_id }} {{ hypervisor }}"
 
 - name: Update stage to registered
-  ec2_tag:
-    region: "{{ ec2_region }}"
-    resource: "{{ ec2_id }}"
-    tags:
-      Stage: "registered"
-      
+  set_fact:
+    "{{ ec2_id }}-stage": "registered"
+  when: reg_sub is not failed
+
 - name: Unregister RHEL instance subscription
   redhat_subscription:
     state: absent
