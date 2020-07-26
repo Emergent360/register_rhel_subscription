@@ -18,7 +18,8 @@
 
 - name: Update stage to registered
   set_fact:
-    "provisioning_stage": "registered"
+    provisioning_stage: "registered"
+    cacheable: yes
   when: reg_sub is not failed
 
 - name: Unregister RHEL instance subscription
