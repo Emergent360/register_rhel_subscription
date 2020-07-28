@@ -8,7 +8,6 @@
     org_id: "{{ rh_org_id }}"
     release: "{{ rh_release }}"
     auto_attach: true
-  when: rh_register
   register: reg_sub
   until: reg_sub is not failed
   retries: 5
@@ -24,13 +23,3 @@
     provisioning_stage: "registered"
     cacheable: yes
   when: reg_sub is not failed
-
-- name: Unregister RHEL instance subscription
-  redhat_subscription:
-    state: absent
-    activationkey: "{{ rh_activationkey }}"
-    org_id: "{{ rh_org_id }}"
-  when: not rh_register
-  register: unreg_sub
-  until: unreg_sub is not failed
-  retries: 5
