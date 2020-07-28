@@ -11,13 +11,7 @@
   register: reg_sub
   until: reg_sub is not failed
   retries: 5
-
-- debug:
-    msg: "{{ ec2_id }} {{ ec2_subnet_id }} {{ hypervisor }}"
-
-- name: Show all variables
-  debug: msg="{{ lookup('varnames', '.+')}}"
-  
+ 
 - name: Update stage to registered
   set_fact:
     provisioning_stage: "registered"
