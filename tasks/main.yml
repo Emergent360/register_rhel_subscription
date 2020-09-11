@@ -11,9 +11,27 @@
   register: reg_sub
   until: reg_sub is not failed
   retries: 5
- 
+  when: reg_active|bool
+
 - name: Update stage to registered
   set_fact:
     provisioning_stage: "registered"
     cacheable: yes
-  when: reg_sub is not failed
+  when: reg_sub is not failed and reg_active|bool
+
+- name: Deregister RHEL instance subscription
+  redhat_subscription:
+    state: absent
+    activationkey: "{{ rh_activationkey }}"
+    org_id: "{{ rh_org_id }}"
+    release: "{{ rh_release }}"
+  register: dereg_sub
+  until: dereg_sub is not failed
+  retries: 5
+  when: not reg_active|bool
+
+- name: Update stage to registered
+  set_fact:
+    provisioning_stage: "deregistered"
+    cacheable: yes
+  when: dereg_sub is not failed and not reg_active|bool
