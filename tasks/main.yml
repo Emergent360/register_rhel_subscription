@@ -30,7 +30,7 @@
   retries: 5
   when: not reg_active|bool
 
-- name: Update stage to registered
+- name: Update stage to deregistered
   set_fact:
     provisioning_stage: "deregistered"
     cacheable: yes
