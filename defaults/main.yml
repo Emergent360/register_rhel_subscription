@@ -1,3 +1,6 @@
 ---
 # defaults file for register_rhel_subscription
 reg_active: Yes
+rh_release: "8"
+rh_org_id: ""
+rh_activationkey: ""
