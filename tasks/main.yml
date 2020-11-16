@@ -18,6 +18,14 @@
   retries: 5
   when: reg_active|bool
 
+- name: Update stage tag to registered
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    state: present
+    tags:
+      Stage: "registered"
+  delegate_to: localhost
+
 - name: Update stage to registered
   set_fact:
     provisioning_stage: "registered"
