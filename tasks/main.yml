@@ -8,6 +8,7 @@
 
 - name: Register RHEL instance subscription
   redhat_subscription:
+    become: yes
     state: present
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
