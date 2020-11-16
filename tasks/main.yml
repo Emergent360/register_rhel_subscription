@@ -3,6 +3,9 @@
 - debug:
     var: ansible_facts
 
+- debug:
+    var: hostvars
+
 - name: Register RHEL instance subscription
   redhat_subscription:
     state: present
