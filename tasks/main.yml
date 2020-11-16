@@ -4,7 +4,7 @@
 #    var: ansible_facts
 
 - debug:
-    msg: "{{ hostvars['inventory_hostname']['ec2_id'] }}"
+    msg: "{{ hostvars[inventory_hostname]['ec2_id'] }}"
 
 - name: Register RHEL instance subscription
   redhat_subscription:
