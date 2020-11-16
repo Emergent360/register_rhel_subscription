@@ -1,10 +1,10 @@
 ---
 # tasks file for register_rhel_subscription
-- debug:
-    var: ansible_facts
+#- debug:
+#    var: ansible_facts
 
 - debug:
-    var: hostvars
+    var: hostvars[inventory_hostname]
 
 - name: Register RHEL instance subscription
   redhat_subscription:
