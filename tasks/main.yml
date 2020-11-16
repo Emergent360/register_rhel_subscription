@@ -1,5 +1,7 @@
 ---
 # tasks file for register_rhel_subscription
+- debug:
+    var: ansible_facts
 
 - name: Register RHEL instance subscription
   redhat_subscription:
