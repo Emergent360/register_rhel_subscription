@@ -8,12 +8,12 @@
 
 - name: Register RHEL instance subscription
   redhat_subscription:
-    become: yes
     state: present
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
     release: "{{ rh_release }}"
     auto_attach: true
+  become: yes
   register: reg_sub
   until: reg_sub is not failed
   retries: 5
