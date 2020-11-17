@@ -4,3 +4,4 @@ reg_active: Yes
 rh_release: "8"
 rh_org_id: ""
 rh_activationkey: ""
+ec2_region: us-east-1
