@@ -1,10 +1,5 @@
 ---
 # tasks file for register_rhel_subscription
-#- debug:
-#    var: ansible_facts
-
-- debug:
-    msg: "{{ hostvars[inventory_hostname]['ec2_id'] }}"
 
 - name: Register RHEL instance subscription
   redhat_subscription:
@@ -27,12 +22,13 @@
     tags:
       Stage: "registered"
   delegate_to: localhost
-
-- name: Update stage to registered
-  set_fact:
-    provisioning_stage: "registered"
-    cacheable: yes
   when: reg_sub is not failed and reg_active|bool
+
+#- name: Update stage to registered
+#  set_fact:
+#    provisioning_stage: "registered"
+#    cacheable: yes
+#  when: reg_sub is not failed and reg_active|bool
 
 - name: Deregister RHEL instance subscription
   redhat_subscription:
@@ -45,8 +41,18 @@
   retries: 5
   when: not reg_active|bool
 
-- name: Update stage to deregistered
-  set_fact:
-    provisioning_stage: "deregistered"
-    cacheable: yes
+- name: Update stage tag to deregistered
+  ec2_tag:
+    region: "{{ ec2_region }}"
+    resource: "{{ hostvars[inventory_hostname]['ec2_id'] }}"
+    state: present
+    tags:
+      Stage: "registered"
+  delegate_to: localhost
   when: dereg_sub is not failed and not reg_active|bool
+
+#- name: Update stage to deregistered
+#  set_fact:
+#    provisioning_stage: "deregistered"
+#    cacheable: yes
+#  when: dereg_sub is not failed and not reg_active|bool
