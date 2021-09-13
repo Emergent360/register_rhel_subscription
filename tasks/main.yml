@@ -8,7 +8,7 @@
     org_id: "{{ rh_org_id }}"
     release: "{{ rh_release }}"
     auto_attach: true
-    pool: "{{ pool_name | default(omit) }}"
+    pool_ids: "{{ pool_ids | default(omit) }}"
   become: yes
   register: reg_sub
   until: reg_sub is not failed
