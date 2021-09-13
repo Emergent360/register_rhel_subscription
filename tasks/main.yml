@@ -1,8 +1,8 @@
 ---
 # tasks file for register_rhel_subscription
 - name: Get instance name
-  debug:
-    var: tags.Name | replace(' ', '_')
+  set_fact:
+    sub_name: "{{ tags.Name | replace(' ', '_') }}"
 
 - name: Register RHEL instance subscription
   redhat_subscription:
@@ -11,6 +11,7 @@
     org_id: "{{ rh_org_id }}"
     release: "{{ rh_release }}"
     auto_attach: true
+    name: sub_name
   become: yes
   register: reg_sub
   until: reg_sub is not failed
