@@ -1,8 +1,5 @@
 ---
 # tasks file for register_rhel_subscription
-- name: Get instance name
-  set_fact:
-    consumer_name: "{{ tags.Name | replace(' ', '_') }}"
 
 - name: Register RHEL instance subscription
   redhat_subscription:
@@ -11,7 +8,7 @@
     org_id: "{{ rh_org_id }}"
     release: "{{ rh_release }}"
     auto_attach: true
-    consumer_name: "{{ consumer_name }}"
+    pool: "{{ pool_name | default(omit) }}"
   become: yes
   register: reg_sub
   until: reg_sub is not failed
