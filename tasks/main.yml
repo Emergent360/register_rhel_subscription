@@ -1,5 +1,8 @@
 ---
 # tasks file for register_rhel_subscription
+- name: Get instance name
+  debug:
+    var: variable_data
 
 - name: Register RHEL instance subscription
   redhat_subscription:
