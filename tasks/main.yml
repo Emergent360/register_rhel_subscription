@@ -2,7 +2,7 @@
 # tasks file for register_rhel_subscription
 - name: Get instance name
   debug:
-    var: tags.Name
+    var: tags.Name | replace(' ', '_')
 
 - name: Register RHEL instance subscription
   redhat_subscription:
