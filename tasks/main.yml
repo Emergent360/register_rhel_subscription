@@ -30,17 +30,20 @@
   ansible.builtin.shell: >
     subscription-manager status |
     grep "Overall Status:"
+  become: yes
   register: sub_status
 
 - name: "subscription-manager refresh"
   ansible.builtin.command: >
     subscription-manager refresh
   when: '"Current" in sub_status.stdout'
+  become: yes
 
 - name: "subscription-manager update facts"
   ansible.builtin.command: >
     subscription-manager facts
     --update
+  become: yes
   when: '"Current" in sub_status.stdout'
 
 - name: Update stage tag to registered
