@@ -12,7 +12,7 @@
     state: started
 
 - name: Register RHEL instance subscription
-  community.general.redhat_subscription:
+  redhat_subscription:
     state: present
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
