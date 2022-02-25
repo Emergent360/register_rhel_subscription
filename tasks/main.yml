@@ -26,6 +26,17 @@
   until: reg_sub is not failed
   retries: 5
 
+- name: "subscription-manager refresh"
+  ansible.builtin.command: >
+    subscription-manager refresh
+  when: '"Current" in sub_status.stdout'
+
+- name: "subscription-manager update facts"
+  ansible.builtin.command: >
+    subscription-manager facts
+    --update
+  when: '"Current" in sub_status.stdout'
+
 - name: Update stage tag to registered
   ec2_tag:
     region: "{{ ec2_region }}"
