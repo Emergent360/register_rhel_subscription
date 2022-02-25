@@ -1,8 +1,18 @@
 ---
 # tasks file for register_rhel_subscription
+- name: "remove rhui"
+  ansible.builtin.yum:
+    name: rh-amazon-rhui-client*
+    state: absent
+
+- name: "start rhsmcertd"
+  ansible.builtin.systemd:
+    name: rhsmcertd
+    enabled: yes
+    state: started
 
 - name: Register RHEL instance subscription
-  redhat_subscription:
+  community.general.redhat_subscription:
     state: present
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
@@ -15,7 +25,7 @@
   retries: 5
 
 - name: Update stage tag to registered
-  ec2_tag:
+  amazon.aws.ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ hostvars[inventory_hostname]['ec2_id'] }}"
     state: present
