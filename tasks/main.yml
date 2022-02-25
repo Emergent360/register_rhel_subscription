@@ -4,12 +4,14 @@
   ansible.builtin.yum:
     name: rh-amazon-rhui-client*
     state: absent
+  become: yes
 
 - name: "start rhsmcertd"
   ansible.builtin.systemd:
     name: rhsmcertd
     enabled: yes
     state: started
+  become: yes
 
 - name: Register RHEL instance subscription
   redhat_subscription:
