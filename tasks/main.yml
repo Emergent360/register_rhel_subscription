@@ -25,7 +25,7 @@
   retries: 5
 
 - name: Update stage tag to registered
-  amazon.aws.ec2_tag:
+  ec2_tag:
     region: "{{ ec2_region }}"
     resource: "{{ hostvars[inventory_hostname]['ec2_id'] }}"
     state: present
