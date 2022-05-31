@@ -13,9 +13,13 @@
     state: started
   become: yes
 
+- name: Create consumer_name
+  set_fact:
+    consumer_name: "{{ hostvars[inventory_hostname]['ec2_tag_Name'] | replace(" ", "_" }}"
+
 - name: debug
   debug:
-    var: hostvars[inventory_hostname]['ec2_tag_Name']
+    var: consumer_name
 
 - name: Register RHEL instance subscription
   redhat_subscription:
