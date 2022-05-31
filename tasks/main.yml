@@ -13,6 +13,10 @@
     state: started
   become: yes
 
+- name: debug
+  debug:
+    var: hostvars[inventory_hostname]
+
 - name: Register RHEL instance subscription
   redhat_subscription:
     state: present
@@ -21,6 +25,7 @@
     release: "{{ rh_release }}"
     auto_attach: true
     pool_ids: "{{ pool_ids | default(omit) }}"
+#    consumer_name: " hostvars[inventory_hostname]"
   become: yes
   register: reg_sub
   until: reg_sub is not failed
