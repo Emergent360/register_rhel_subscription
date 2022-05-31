@@ -15,7 +15,7 @@
 
 - name: Create consumer_name
   set_fact:
-    consumer_name: "{{ hostvars[inventory_hostname]['ec2_tag_Name'] | replace(" ", "_" }}"
+    consumer_name: "{{ hostvars[inventory_hostname]['ec2_tag_Name'] | replace(" ", "_") }}"
 
 - name: debug
   debug:
