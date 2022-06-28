@@ -13,12 +13,9 @@
     state: started
   become: yes
 
-- debug:
-    var: hostvars[inventory_hostname]
-
-- name: Create consumer_name
-  set_fact:
-    consumer_name: "{{ hostvars[inventory_hostname]['ec2_tag_Name'] | replace(' ', '_') }}"
+#- name: Create consumer_name
+#  set_fact:
+#    consumer_name: "{{ hostvars[inventory_hostname]['ec2_tag_Name'] | replace(' ', '_') }}"
 
 - name: debug
   debug:
