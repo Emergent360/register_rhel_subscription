@@ -27,7 +27,7 @@
     activationkey: "{{ rh_activationkey }}"
     org_id: "{{ rh_org_id }}"
     release: "{{ rh_release }}"
-    auto_attach: false
+#    auto_attach: false
     pool_ids: "{{ pool_ids | default(omit) }}"
     consumer_name: "{{ consumer_name }}"
   become: yes
