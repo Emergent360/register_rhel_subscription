@@ -47,7 +47,7 @@
   ansible.builtin.command: >
     insights-client 
     --register 
-    --display-name "{{ system_name }}"
+    --display-name="{{ system_name }}"
   become: yes  
 
 #- name: Register RHEL instance subscription
