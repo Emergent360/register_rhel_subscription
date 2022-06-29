@@ -4,7 +4,7 @@
   ansible.builtin.yum:
     name: rh-amazon-rhui-client*
     state: absent
-  become: yes
+  
 
 - name: "start rhsmcertd"
   ansible.builtin.systemd:
@@ -17,7 +17,7 @@
   ansible.builtin.command: >
     subscription-manager config 
     --rhsm.manage_repos=1
-  become: yes
+  become: yes  
 
 - name: "check registration status"
   ansible.builtin.shell: >
@@ -25,6 +25,7 @@
     grep "Overall Status:" |
     awk -F': ' '{print $2}'
   register: sub_status
+  become: yes  
 
 - name: Create system_name
   set_fact:
@@ -43,7 +44,7 @@
     insights-client 
     --register 
     --display-name "{{ system_name }}"
-  become: yes
+  become: yes  
 
 #- name: Register RHEL instance subscription
 #  redhat_subscription:
@@ -54,17 +55,17 @@
 ##    auto_attach: true
 #    pool_ids: "{{ pool_ids | default(omit) }}"
 #    consumer_name: "{{ consumer_name }}"
-#  become: yes
+#  
 #  register: reg_sub
 #  until: reg_sub is not failed
 #  retries: 5
 
-- name: "check registration status"
   ansible.builtin.shell: >
     subscription-manager status |
-    grep "Overall Status:"
-  become: yes
+    grep "Overall Status:" |
+    awk -F': ' '{print $2}'
   register: sub_status
+  become: yes  
 
 - name: "subscription-manager refresh"
   ansible.builtin.command: >
@@ -76,9 +77,9 @@
   ansible.builtin.command: >
     subscription-manager facts
     --update
-  become: yes
   when: '"Current" in sub_status.stdout'
-
+  become: yes
+  
 - name: Update stage tag to registered
   ec2_tag:
     region: "{{ ec2_region }}"
