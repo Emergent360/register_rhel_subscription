@@ -4,7 +4,7 @@
   ansible.builtin.yum:
     name: rh-amazon-rhui-client*
     state: absent
-  
+  become: yes
 
 - name: "start rhsmcertd"
   ansible.builtin.systemd:
@@ -79,7 +79,7 @@
     --update
   when: '"Current" in sub_status.stdout'
   become: yes
-  
+
 - name: Update stage tag to registered
   ec2_tag:
     region: "{{ ec2_region }}"
