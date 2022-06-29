@@ -60,13 +60,6 @@
 #  until: reg_sub is not failed
 #  retries: 5
 
-  ansible.builtin.shell: >
-    subscription-manager status |
-    grep "Overall Status:" |
-    awk -F': ' '{print $2}'
-  register: sub_status
-  become: yes  
-
 - name: "subscription-manager refresh"
   ansible.builtin.command: >
     subscription-manager refresh
