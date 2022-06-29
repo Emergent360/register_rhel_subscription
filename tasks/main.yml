@@ -37,6 +37,7 @@
     --activationkey="{{ rh_activationkey }}"
     --org="{{ rh_org_id }}"
     --name="{{ system_name }}"
+    --force
   register: reg_sub
   become: yes
   until: reg_sub is not failed
